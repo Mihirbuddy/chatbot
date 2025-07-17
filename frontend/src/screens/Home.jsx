@@ -57,6 +57,14 @@ const Home = () => {
         }
     }, [isModalOpen])
 
+    const handleLogout = () => {
+    // Clear all local storage
+    localStorage.clear();
+
+    // Optionally redirect to login page (if using React Router)
+    window.location.href = "/login"; // Or "/login" depending on your app
+};
+
     return (
         <main className='min-h-screen bg-slate-950 text-white p-6'>
             {/* Header */}
@@ -70,11 +78,20 @@ const Home = () => {
                             Manage your projects and collaborate with your team
                         </p>
                     </div>
+                    
                     <div className='flex items-center gap-4'>
+                        
                         <div className='text-right'>
                             <p className='text-sm text-slate-400'>Total Projects</p>
                             <p className='text-2xl font-bold text-blue-400'>{projects.length}</p>
                         </div>
+                        <button
+    onClick={handleLogout}
+    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white rounded-lg transition-all duration-200 shadow-md hover:shadow-lg border border-red-400/30 font-medium"
+>
+    Logout
+</button>
+
                     </div>
                 </div>
             </header>
