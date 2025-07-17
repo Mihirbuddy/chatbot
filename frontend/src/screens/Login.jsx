@@ -14,23 +14,25 @@ const Login = () => {
     const navigate = useNavigate()
 
     function submitHandler(e) {
+    e.preventDefault();
 
-        e.preventDefault()
+    axios.post('/users/login', {
+        email,
+        password
+    }).then((res) => {
+        console.log(res.data);
 
-        axios.post('/users/login', {
-            email,
-            password
-        }).then((res) => {
-            console.log(res.data)
+        // ✅ ADD THESE LINES BELOW
+        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('user', JSON.stringify(res.data.user)); 
+        setUser(res.data.user); // ✅ Set user in context
 
-            localStorage.setItem('token', res.data.token)
-            setUser(res.data.user)
+        navigate('/');
+    }).catch((err) => {
+        console.log(err.response.data);
+    });
+}
 
-            navigate('/')
-        }).catch((err) => {
-            console.log(err.response.data)
-        })
-    }
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-900">
